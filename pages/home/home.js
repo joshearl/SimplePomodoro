@@ -15,11 +15,21 @@
              * Settings to change length of time periods.
 
             */
-            WinJS.Utilities.query("#start-button")
-                .listen("click", function () {
-                    var timeDisplay = WinJS.Utilities.query('#time-display');
-                    timeDisplay.forEach(function (div) { div.innerHTML = "hello world"; });
-                });
+            var now = new Date();
+            var offset = 1500000;
+
+            var countdownTimer = {
+                start: now.getTime(),
+                end: now.setTime(now.getTime() + offset)
+            }
+            
+            var startButton = WinJS.Utilities.query('#start-button'),
+                timeDisplay = WinJS.Utilities.query('#time-display');
+                
+
+            startButton.listen("click", function () {
+                timeDisplay.forEach(function (div) { div.innerHTML = ((countdownTimer.end - countdownTimer.start) / 1000) / 60; });
+            });
         }
     });
 })();
