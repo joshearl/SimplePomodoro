@@ -5,8 +5,10 @@
         ready: function (element, options) {
             /* TODO v1.0
 
-             * Format display values.
-             * Add long break timer.
+             * Format display values as MM:SS.
+             * Stack buttons.
+             * Hide duration buttons when clock is running.
+             * Hide stop button when clock is stopped.
              * Pop up toast notification when timer is up.
              * Track use with Google Analytics.
              * Run in background.
@@ -22,13 +24,16 @@
 
             var countdown,
                 ticker,
-                startWorkButton = WinJS.Utilities.query('#start-work'),
-                startBreakButton = WinJS.Utilities.query('#start-break'),
+                workButton = WinJS.Utilities.query('#'+
+                    'work'),
+                shortBreakButton = WinJS.Utilities.query('#short-break'),
+                longBreakButton = WinJS.Utilities.query('#long-break'),
                 stopButton = WinJS.Utilities.query('#stop'),
                 timeDisplay = WinJS.Utilities.query('#time-display');
 
-            startWorkButton.listen("click", function () { start(minutes.twentyFive); });
-            startBreakButton.listen("click", function () { start(minutes.five); });
+            workButton.listen("click", function () { start(minutes.twentyFive); });
+            shortBreakButton.listen("click", function () { start(minutes.five); });
+            longBreakButton.listen("click", function () { start(minutes.fifteen); });
             stopButton.listen("click", reset);
             
             function start(duration) {
