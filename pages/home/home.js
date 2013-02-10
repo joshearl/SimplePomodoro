@@ -5,12 +5,10 @@
         ready: function (element, options) {
             /* TODO v1.0
 
-             * Start countdown from 25:00.
-             * Start countdown from 5:00.
-             * Start countdown from 15:00.
-             * Reset current countdown.
-             * Notification when timer is up.
-             * Analytics.
+             * Format display values.
+             * Add long break timer.
+             * Pop up toast notification when timer is up.
+             * Track use with Google Analytics.
              * Run in background.
              * Settings to change background color.
              * Settings to change length of time periods.
