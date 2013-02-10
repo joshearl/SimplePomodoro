@@ -24,8 +24,7 @@
 
             var countdown,
                 ticker,
-                workButton = WinJS.Utilities.query('#'+
-                    'work'),
+                workButton = WinJS.Utilities.query('#work'),
                 shortBreakButton = WinJS.Utilities.query('#short-break'),
                 longBreakButton = WinJS.Utilities.query('#long-break'),
                 stopButton = WinJS.Utilities.query('#stop'),
