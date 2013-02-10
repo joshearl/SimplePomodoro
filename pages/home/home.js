@@ -15,21 +15,31 @@
              * Settings to change length of time periods.
 
             */
-            var now = new Date();
-            var offset = 1500000;
+            var minutes = {
+                five: 300000,
+                fifteen: 900000,
+                twentyFive: 1500000
+            };
+            
+            var countdown = {
+                start: new Date().getTime(),
+                remaining: function () {
+                    var now = new Date();
+                    var end = new Date(this.start + minutes.twentyFive);
 
-            var countdownTimer = {
-                start: now.getTime(),
-                end: now.setTime(now.getTime() + offset)
-            }
+                    return ((end - now.getTime()) / 1000) / 60;
+                }
+            };
             
             var startButton = WinJS.Utilities.query('#start-button'),
                 timeDisplay = WinJS.Utilities.query('#time-display');
                 
-
-            startButton.listen("click", function () {
-                timeDisplay.forEach(function (div) { div.innerHTML = ((countdownTimer.end - countdownTimer.start) / 1000) / 60; });
-            });
+            startButton.listen("click", start);
+            
+            function start() {
+                timeDisplay.forEach(function (div) { div.innerHTML = countdown.remaining(); });
+                window.setTimeout(start, 500);
+            }
         }
     });
 })();
