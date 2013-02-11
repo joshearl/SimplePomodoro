@@ -15,6 +15,7 @@
              * Run in background.
              * Settings to change background color.
              * Settings to change length of time periods.
+             * Refactor into pomodoro object that raises events.
 
             */
 
@@ -45,10 +46,10 @@
             }
 
             function update() {
-                var remaining = countdown.remaining();
+                var remaining = countdown.getRemaining();
                 
                 if (remaining > 0) {
-                    setDisplayTo(remaining);
+                    setDisplayTo(countdown.getDisplayTime());
                     scheduleNextUpdate();
                 } else {
                     showToast(currentPomodoro.completedMessage);
@@ -71,16 +72,33 @@
             }
 
             function getCountdown(length) {
-                return {
-                    start: new Date().getTime(),
-                    type: "shortBreak",
-                    remaining: function () {
-                        var now = new Date(),
-                            end = new Date(this.start + length);
+                var start = new Date().getTime(),
+                    end = new Date(start + length);
 
-                        return ((end - now.getTime()) / 1000) / 60;
+                return {
+                    start: start,
+                    type: currentPomodoro,
+                    getRemaining: function () {
+                        var now = new Date().getTime();
+
+                        return ((end - now) / 1000) / 60;
+                    },
+                    getDisplayTime: function () {
+                        return getMinutes() + ':' + getSeconds();
                     }
                 };
+
+                function getSeconds() {
+                    return String(Math.round(getRemainingInSeconds() % 60));
+                }
+
+                function getMinutes () {
+                    return String(Math.round(getRemainingInSeconds() / 60));
+                }
+
+                function getRemainingInSeconds() {
+                    return (end - new Date().getTime()) / 1000;
+                }
             }
 
             function showToast(message) {
