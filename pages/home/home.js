@@ -7,9 +7,9 @@
         ready: function (element, options) {
             /* TODO v1.0
 
-             * Format display values as MM:SS.
-             * Stack buttons.
-             * Hide duration buttons when clock is running.
+             * Fix MM:SS display when >10 seconds remaining.
+             * Stack buttons in snapped view.
+             * Hide unneeded duration buttons when clock is running (i.e. "work" when we're in a work pomodoro).
              * Hide stop button when clock is stopped.
              * Track use with Google Analytics.
              * Run in background.
@@ -92,8 +92,8 @@
                     return String(Math.round(getRemainingInSeconds() % 60));
                 }
 
-                function getMinutes () {
-                    return String(Math.round(getRemainingInSeconds() / 60));
+                function getMinutes() {
+                    return String(Math.round(getRemainingInSeconds() / 60) - 1);
                 }
 
                 function getRemainingInSeconds() {
