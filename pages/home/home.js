@@ -7,12 +7,12 @@
         ready: function (element, options) {
             /* TODO v1.0
 
-             * Fix MM:SS display when >10 seconds remaining.
+             * Prevent display from shifting as numbers change.
              * Stack buttons in snapped view.
              * Hide unneeded duration buttons when clock is running (i.e. "work" when we're in a work pomodoro).
              * Hide stop button when clock is stopped.
              * Track use with Google Analytics.
-             * Run in background.
+             * Show notifications when running in background.
              * Settings to change background color.
              * Settings to change length of time periods.
              * Refactor into pomodoro object that raises events.
@@ -89,13 +89,15 @@
                 };
 
                 function getSeconds() {
-                    return String(Math.round(getRemainingInSeconds() % 60));
+                    var seconds = String(Math.round(getRemainingInSeconds() % 60));
+
+                    return seconds > 59 ? '00' : seconds < 10 ? '0' + seconds : seconds;
                 }
 
                 function getMinutes() {
-                    return String(Math.round(getRemainingInSeconds() / 60) - 1);
+                    return String(Math.floor(getRemainingInSeconds() / 60));
                 }
-
+                
                 function getRemainingInSeconds() {
                     return (end - new Date().getTime()) / 1000;
                 }
