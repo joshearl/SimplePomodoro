@@ -7,10 +7,10 @@
         ready: function (element, options) {
             /* TODO v1.0
 
+             * Hide stop button when clock is stopped.
              * Prevent display from shifting as numbers change.
              * Stack buttons in snapped view.
              * Hide unneeded duration buttons when clock is running (i.e. "work" when we're in a work pomodoro).
-             * Hide stop button when clock is stopped.
              * Track use with Google Analytics.
              * Show notifications when running in background.
              * Play sound with notifications.
@@ -53,6 +53,8 @@
             function toggleButtonVisibility(pomodoro) {
                 if (!pomodoro) {
                     stopButton.addClass('hidden');
+                } else {
+                    stopButton.removeClass('hidden');
                 }
             }
 
