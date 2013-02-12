@@ -13,6 +13,7 @@
              * Hide stop button when clock is stopped.
              * Track use with Google Analytics.
              * Show notifications when running in background.
+             * Play sound with notifications.
              * Settings to change background color.
              * Settings to change length of time periods.
              * Refactor into pomodoro object that raises events.
@@ -39,10 +40,20 @@
             longBreakButton.listen("click", function () { start(pomodoros.longBreak); });
             stopButton.listen("click", reset);
             
+            toggleButtonVisibility(currentPomodoro);
+
+            
             function start(pomodoro) {
                 currentPomodoro = pomodoro;
                 countdown = getCountdown(currentPomodoro.length);
+                toggleButtonVisibility(currentPomodoro);
                 update();
+            }
+            
+            function toggleButtonVisibility(pomodoro) {
+                if (!pomodoro) {
+                    stopButton.addClass('hidden');
+                }
             }
 
             function update() {
