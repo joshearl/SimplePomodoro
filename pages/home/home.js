@@ -24,6 +24,7 @@
                 shortBreak: { length: 300000, completedMessage: "Break's over. Back to work!" },
                 longBreak: { length: 900000, completedMessage: "Break's over. Back to work!" },
                 work: { length: 1500000, completedMessage: "Good work! Let's take a break." }
+                //work: { length: 5000, completedMessage: "Good work! Let's take a break." }
             };
             
             var countdown,
@@ -102,14 +103,19 @@
                 };
 
                 function getSeconds() {
-                    var offset = 1;
+                    var offset = 1,
                         seconds = String(Math.round((getRemainingInSeconds() - offset) % 60));
-                    
-                    return seconds > 59 ? '00' : seconds < 10 ? '0' + seconds : seconds;
+
+                    return formatForDisplay(seconds);
                 }
 
                 function getMinutes() {
-                    return String(Math.floor(getRemainingInSeconds() / 60));
+                    var minutes = String(Math.floor((getRemainingInSeconds() - 0.5) / 60));
+                    return formatForDisplay(minutes);
+                }
+                
+                function formatForDisplay(value) {
+                    return value < 1 ? "00" : value < 10 ? '0' + value : value;
                 }
                 
                 function getRemainingInSeconds() {
