@@ -8,6 +8,25 @@
 
         show: function (options) {
 
+            var toastXml = this.getToastXml(options);
+
+            var toast = new notifications.ToastNotification(toastXml);
+            var notifier = notificationManager.createToastNotifier();
+
+            notifier.show(toast);
+        },
+        schedule: function (options) {
+
+            var toastXml = this.getToastXml(options);
+
+
+            var toast = new notifications.ScheduledToastNotification(toastXml, options.due);
+            toast.id = this.getUniqueToastId();
+
+            notifications.ToastNotificationManager.createToastNotifier().addToSchedule(toast);
+            return toast;
+        },
+        getToastXml: function (options) {
             var _template = notifications.ToastTemplateType.toastText01; //default
 
             //check for the template value
@@ -43,28 +62,8 @@
                     value.appendChild(toastXml.createTextNode(options.textContent2));
                 }
             });
-
-            //Display the toast
-            var toast = new notifications.ToastNotification(toastXml);
-            var notifier = notificationManager.createToastNotifier();
-
-            notifier.show(toast);
-        },
-        schedule: function (options) {
-
-            var toastXml = notifications.ToastNotificationManager.getTemplateContent(notifications.ToastTemplateType.toastText02);
-            var strings = toastXml.getElementsByTagName("text");
-            strings[0].appendChild(toastXml.createTextNode(options.title));
-            strings[1].appendChild(toastXml.createTextNode(options.textContent));
             
-            var now = new Date();
-            var tenSecondsFromNow = new Date(now.getTime() + 10000);
-
-            var toast = new notifications.ScheduledToastNotification(toastXml, tenSecondsFromNow);
-            toast.id = this.getUniqueToastId();
-
-            notifications.ToastNotificationManager.createToastNotifier().addToSchedule(toast);
-            return toast;
+            return toastXml;
         },
         getUniqueToastId: function () {
             return Math.floor(Math.random() * 100000000);

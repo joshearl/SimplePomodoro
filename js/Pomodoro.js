@@ -24,6 +24,7 @@
 
             return {
                 start: start,
+                end: end,
                 type: this.currentPomodoro,
                 getRemaining: function () {
                     var now = new Date().getTime();

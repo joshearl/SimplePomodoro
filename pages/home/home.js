@@ -4,22 +4,26 @@
     var toast = YeahToast,
         query = WinJS.Utilities.query;
 
+    /* 
+
+     * TODO v1.0
+     * Pull request for schedule support in YeahToast.
+     * Cancel toast when timer is stopped or switched.
+     * Prevent display from shifting as numbers change.
+     * Center display in full screen, snapped views.
+     * Reduce display size when snapped.
+
+     * TODO v2.0
+     * Refactor pomodoro implementation for better display, event-based interface: https://github.com/joshearl/jquery-pomodoro-timer/tree/master/js
+     * Track use with Google Analytics.
+     * Play sound with notifications.
+     * Settings to change background color.
+     * Settings to change length of time periods.
+
+     */
+
     WinJS.UI.Pages.define("/pages/home/home.html", {
         ready: function (element, options) {
-            /* TODO v1.0
-
-             * Show notifications when running in background.
-             * Refactor into pomodoro object that raises events.
-             * Refactor pomodoro timer code: https://github.com/joshearl/jquery-pomodoro-timer/tree/master/js
-             * Prevent display from shifting as numbers change.
-             * Track use with Google Analytics.
-             * Center display in full screen, snapped views.
-             * Reduce display size when snapped.
-             * Play sound with notifications.
-             * Settings to change background color.
-             * Settings to change length of time periods.
-
-            */
             
             var countdown,
                 ticker,
@@ -40,7 +44,8 @@
             function start(pomodoro) {
                 Pomodoro.currentPomodoro = pomodoro;
                 countdown = Pomodoro.getCountdown(Pomodoro.currentPomodoro.length);
-                toast.schedule({ title: "SIMPLE POMODORO", textContent: Pomodoro.currentPomodoro.completedMessage })
+                toast.schedule({ title: "SIMPLE POMODORO", textContent: Pomodoro.currentPomodoro.completedMessage, due: countdown.end });
+
                 toggleButtonVisibility(Pomodoro.currentPomodoro);
                 appBar.winControl.hide();
                 update();
@@ -63,7 +68,6 @@
                     setDisplayTo(countdown.getDisplayTime());
                     scheduleNextUpdate();
                 } else {
-                    showToast(Pomodoro.currentPomodoro.completedMessage);
                     reset();
                 }
             }
