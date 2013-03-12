@@ -102,8 +102,9 @@
                 };
 
                 function getSeconds() {
-                    var seconds = String(Math.round(getRemainingInSeconds() % 60));
-
+                    var offset = 1;
+                        seconds = String(Math.round((getRemainingInSeconds() - offset) % 60));
+                    
                     return seconds > 59 ? '00' : seconds < 10 ? '0' + seconds : seconds;
                 }
 
