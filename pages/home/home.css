@@ -6,6 +6,7 @@
 
 #time-display {
 	font-size:10em;
+    margin:0;
 }
 
 #container {
@@ -15,20 +16,17 @@
 
 @media screen and (-ms-view-state: snapped) {
     .homepage section[role=main] {
-        margin-left: 20px;
-        margin-right: 20px;
 		text-align: center;
+        padding-top: 180px;
     }
 	
 	#time-display {
-		font-size:6em;
+		font-size:5em;
 	}
 }
 
 @media screen and (-ms-view-state: fullscreen-portrait) {
     .homepage section[role=main] {
-        margin-left: 100px;
-        margin-right: 100px;
 		text-align: center;
     }
 }

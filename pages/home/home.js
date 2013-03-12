@@ -8,7 +8,6 @@
 
      * TODO v1.0
      * Prevent display from shifting as numbers change.
-     * Reduce display size when snapped.
 
      * TODO v2.0
      * Refactor pomodoro implementation for better display, event-based interface: https://github.com/joshearl/jquery-pomodoro-timer/tree/master/js
