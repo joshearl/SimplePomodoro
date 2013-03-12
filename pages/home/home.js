@@ -8,6 +8,7 @@
 
      * TODO v1.0
      * Prevent display from shifting as numbers change.
+     * Fix stop bug.
 
      * TODO v2.0
      * Refactor pomodoro implementation for better display, event-based interface: https://github.com/joshearl/jquery-pomodoro-timer/tree/master/js
@@ -24,12 +25,12 @@
             var countdown,
                 ticker,
                 notification,
-                appBar = document.querySelector('#appBar'),
+                appBar = query('#appBar')[0],
                 workButton = query('#work'),
                 shortBreakButton = query('#short-break'),
                 longBreakButton = query('#long-break'),
                 stopButton = query('#stop'),
-                timeDisplay = query('#time-display');
+                timeDisplay = query('#time-display')[0];
 
             workButton.listen("click", function () { start(Pomodoro.unit.work); });
             shortBreakButton.listen("click", function () { start(Pomodoro.unit.shortBreak); });
@@ -71,7 +72,7 @@
             }
 
             function setDisplayTo(value) {
-                timeDisplay.forEach(function (div) { div.innerHTML = value; });
+                timeDisplay.innerHTML = value;
             }
 
             function scheduleNextUpdate() {
