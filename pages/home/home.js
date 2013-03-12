@@ -7,8 +7,8 @@
     /* 
 
      * TODO v1.0
-     * Prevent display from shifting as numbers change.
-     * Fix stop bug.
+     * Stop throws an error occasionally.
+     * Confirm that notifications are properly canceled.
 
      * TODO v2.0
      * Refactor pomodoro implementation for better display, event-based interface: https://github.com/joshearl/jquery-pomodoro-timer/tree/master/js
@@ -30,7 +30,8 @@
                 shortBreakButton = query('#short-break'),
                 longBreakButton = query('#long-break'),
                 stopButton = query('#stop'),
-                timeDisplay = query('#time-display')[0];
+                minutes = query('#minutes')[0],
+                seconds = query('#seconds')[0];
 
             workButton.listen("click", function () { start(Pomodoro.unit.work); });
             shortBreakButton.listen("click", function () { start(Pomodoro.unit.shortBreak); });
@@ -64,15 +65,16 @@
                 var remaining = countdown.getRemaining();
                 
                 if (remaining > 0) {
-                    setDisplayTo(countdown.getDisplayTime());
+                    setDisplayTo(countdown);
                     scheduleNextUpdate();
                 } else {
                     reset();
                 }
             }
 
-            function setDisplayTo(value) {
-                timeDisplay.innerHTML = value;
+            function setDisplayTo(countdown) {
+                minutes.innerHTML = countdown ? countdown.getMinutes() : "00";
+                seconds.innerHTML = countdown ? countdown.getSeconds() : "00";
             }
 
             function scheduleNextUpdate() {
@@ -84,7 +86,7 @@
                 countdown = {};
                 cancelScheduledNotication();
                 toggleButtonVisibility();
-                setDisplayTo("00:00");
+                setDisplayTo();
             }
 
             function cancelScheduledNotication() {

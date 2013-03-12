@@ -31,8 +31,11 @@
 
                     return ((end - now) / 1000) / 60;
                 },
-                getDisplayTime: function () {
-                    return getMinutes() + ':' + getSeconds();
+                getMinutes: function () {
+                    return getMinutes();
+                },
+                getSeconds: function () {
+                    return getSeconds();
                 }
             };
 
