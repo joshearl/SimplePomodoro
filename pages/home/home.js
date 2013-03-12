@@ -9,10 +9,9 @@
 
              * Hide stop button when clock is stopped.
              * Prevent display from shifting as numbers change.
-             * Stack buttons in snapped view.
-             * Hide unneeded duration buttons when clock is running (i.e. "work" when we're in a work pomodoro).
              * Track use with Google Analytics.
              * Show notifications when running in background.
+             * Handle snapping.
              * Play sound with notifications.
              * Settings to change background color.
              * Settings to change length of time periods.

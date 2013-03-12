@@ -25,12 +25,35 @@
         <section aria-label="Main content" role="main">
             <div id="container">
                 <div id="time-display">00:00</div>
-                <input id="work" type="button" value="Work Time!" />
+<!--                <input id="work" type="button" value="Work Time!" />
                 <input id="short-break" type="button" value="Short Break" />
-                <input id="long-break" type="button" value="Long Break" />
+                <input id="long-break" type="button" value="Long Break" />-->
                 <input id="stop" type="button" value="Stop" />
             </div>
         </section>
+        <div id="appBar" data-win-control="WinJS.UI.AppBar">
+            <button data-win-control="WinJS.UI.AppBarCommand" 
+                    data-win-options="{id:'work',
+                        label:'Work',
+                        icon:'clock',
+                        section:'selection',
+                        tooltip:'Start working!'}">
+            </button>
+            <button data-win-control="WinJS.UI.AppBarCommand" 
+                data-win-options="{id:'short-break',
+                    label:'Short Break',
+                    icon:'clock',
+                    section:'selection',
+                    tooltip:'Take a break!'}">
+            </button>
+            <button data-win-control="WinJS.UI.AppBarCommand" 
+                data-win-options="{id:'long-break',
+                    label:'Long Break',
+                    icon:'clock',
+                    section:'selection',
+                    tooltip:'Take a long break!'}">
+            </button>
+        </div>
     </div>
 </body>
 </html>
