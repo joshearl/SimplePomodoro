@@ -60,6 +60,7 @@
     <Content Include="images\storelogo.png" />
     <Content Include="js\default.js" />
     <Content Include="js\navigator.js" />
+    <Content Include="js\Pomodoro.js" />
     <Content Include="js\YeahToast.js" />
     <Content Include="pages\home\home.css" />
     <Content Include="pages\home\home.html" />
