@@ -8,12 +8,11 @@
         ready: function (element, options) {
             /* TODO v1.0
 
+             * Show notifications when running in background.
              * Refactor into pomodoro object that raises events.
-             * Dismiss app bar when command clicked.
-             * Hide stop button when clock is stopped.
              * Prevent display from shifting as numbers change.
              * Track use with Google Analytics.
-             * Show notifications when running in background.
+             * Center display in full screen, snapped views.
              * Reduce display size when snapped.
              * Play sound with notifications.
              * Settings to change background color.
@@ -35,7 +34,7 @@
             longBreakButton.listen("click", function () { start(Pomodoro.unit.longBreak); });
             stopButton.listen("click", reset);
 
-            toggleButtonVisibility(Pomodoro.currentPomodoro);
+            toggleButtonVisibility();
 
             function start(pomodoro) {
                 Pomodoro.currentPomodoro = pomodoro;
@@ -54,6 +53,8 @@
             }
 
             function update() {
+                if (!countdown) return;
+                
                 var remaining = countdown.getRemaining();
                 
                 if (remaining > 0) {
