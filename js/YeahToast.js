@@ -3,6 +3,7 @@
 
     var notifications = Windows.UI.Notifications;
     var notificationManager = notifications.ToastNotificationManager;
+    var notifier = notificationManager.createToastNotifier();
 
     WinJS.Namespace.define("YeahToast", {
 
@@ -11,7 +12,6 @@
             var toastXml = this.getToastXml(options);
 
             var toast = new notifications.ToastNotification(toastXml);
-            var notifier = notificationManager.createToastNotifier();
 
             notifier.show(toast);
         },
@@ -19,19 +19,27 @@
 
             var toastXml = this.getToastXml(options);
 
-
             var toast = new notifications.ScheduledToastNotification(toastXml, options.due);
             toast.id = this.getUniqueToastId();
 
-            notifications.ToastNotificationManager.createToastNotifier().addToSchedule(toast);
+            notifier.addToSchedule(toast);
             return toast;
+        },
+        cancel: function (id) {
+            var scheduled = notifier.getScheduledToastNotifications();
+            
+            for (var i = 0, len = scheduled.length; i < len; i++) {
+                if (scheduled[i].id === id) {
+                    notifier.removeFromSchedule(scheduled[i]);
+                }
+            }
         },
         getToastXml: function (options) {
             var _template = notifications.ToastTemplateType.toastText01; //default
 
             //check for the template value
             if (options.template) {
-                _template = options.template
+                _template = options.template;
             }
             else {
                 //Try and figure out the template
@@ -40,7 +48,6 @@
 
             //Get the template xml
             var toastXml = notificationManager.getTemplateContent(_template);
-
 
             if (options.audio) {
                 //TODO: add in audio node under the root
@@ -62,7 +69,7 @@
                     value.appendChild(toastXml.createTextNode(options.textContent2));
                 }
             });
-            
+
             return toastXml;
         },
         getUniqueToastId: function () {
@@ -98,5 +105,5 @@
                 return notifications.ToastTemplateType.toastText01;
             }
         }
-    })
+    });
 })();

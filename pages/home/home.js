@@ -27,6 +27,7 @@
             
             var countdown,
                 ticker,
+                notification,
                 appBar = document.querySelector('#appBar'),
                 workButton = query('#work'),
                 shortBreakButton = query('#short-break'),
@@ -42,9 +43,10 @@
             toggleButtonVisibility();
 
             function start(pomodoro) {
+                cancelScheduledNotication();
                 Pomodoro.currentPomodoro = pomodoro;
                 countdown = Pomodoro.getCountdown(Pomodoro.currentPomodoro.length);
-                toast.schedule({ title: "SIMPLE POMODORO", textContent: Pomodoro.currentPomodoro.completedMessage, due: countdown.end });
+                notification = toast.schedule({ title: "SIMPLE POMODORO", textContent: Pomodoro.currentPomodoro.completedMessage, due: countdown.end });
 
                 toggleButtonVisibility(Pomodoro.currentPomodoro);
                 appBar.winControl.hide();
@@ -83,13 +85,15 @@
             function reset() {
                 window.clearTimeout(ticker);
                 countdown = {};
+                cancelScheduledNotication();
                 toggleButtonVisibility();
                 setDisplayTo("00:00");
             }
-            
-            function showToast(message) {
-                toast.show({ title: "SIMPLE POMODORO", textContent: message });
+
+            function cancelScheduledNotication() {
+                if (notification)
+                    toast.cancel(notification.id);
             }
-        }
+       }
     });
 })();
