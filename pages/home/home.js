@@ -1,13 +1,15 @@
 ﻿(function () {
     "use strict";
 
-    var toast = YeahToast;
+    var toast = YeahToast,
+        query = WinJS.Utilities.query;
 
     WinJS.UI.Pages.define("/pages/home/home.html", {
         ready: function (element, options) {
             /* TODO v1.0
 
              * Refactor into pomodoro object that raises events.
+             * Dismiss app bar when command clicked.
              * Hide stop button when clock is stopped.
              * Prevent display from shifting as numbers change.
              * Track use with Google Analytics.
@@ -21,11 +23,12 @@
 
             var countdown,
                 ticker,
-                workButton = WinJS.Utilities.query('#work'),
-                shortBreakButton = WinJS.Utilities.query('#short-break'),
-                longBreakButton = WinJS.Utilities.query('#long-break'),
-                stopButton = WinJS.Utilities.query('#stop'),
-                timeDisplay = WinJS.Utilities.query('#time-display');
+                appBar = document.querySelector('#appBar'),
+                workButton = query('#work'),
+                shortBreakButton = query('#short-break'),
+                longBreakButton = query('#long-break'),
+                stopButton = query('#stop'),
+                timeDisplay = query('#time-display');
 
             workButton.listen("click", function () { start(Pomodoro.unit.work); });
             shortBreakButton.listen("click", function () { start(Pomodoro.unit.shortBreak); });
@@ -38,6 +41,7 @@
                 Pomodoro.currentPomodoro = pomodoro;
                 countdown = Pomodoro.getCountdown(Pomodoro.currentPomodoro.length);
                 toggleButtonVisibility(Pomodoro.currentPomodoro);
+                appBar.winControl.hide();
                 update();
             }
             
