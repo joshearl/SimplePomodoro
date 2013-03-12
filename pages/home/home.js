@@ -66,12 +66,13 @@
             }
 
             function scheduleNextUpdate() {
-                ticker = window.setTimeout(update, 200);
+                ticker = window.setTimeout(update, 50);
             }
             
             function reset() {
                 window.clearTimeout(ticker);
                 countdown = {};
+                toggleButtonVisibility();
                 setDisplayTo("00:00");
             }
             
