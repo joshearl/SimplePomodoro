@@ -1,6 +1,6 @@
 ﻿.homepage section[role=main] {
-    margin-left: 120px;
-    margin-right: 120px;
+    margin: 0px;
+	padding-top: 140px;
 	text-align: center;
 }
 

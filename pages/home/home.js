@@ -7,10 +7,7 @@
     /* 
 
      * TODO v1.0
-     * Pull request for schedule support in YeahToast.
-     * Cancel toast when timer is stopped or switched.
      * Prevent display from shifting as numbers change.
-     * Center display in full screen, snapped views.
      * Reduce display size when snapped.
 
      * TODO v2.0
