@@ -10,6 +10,7 @@
 
              * Show notifications when running in background.
              * Refactor into pomodoro object that raises events.
+             * Refactor pomodoro timer code: https://github.com/joshearl/jquery-pomodoro-timer/tree/master/js
              * Prevent display from shifting as numbers change.
              * Track use with Google Analytics.
              * Center display in full screen, snapped views.
@@ -19,7 +20,7 @@
              * Settings to change length of time periods.
 
             */
-
+            
             var countdown,
                 ticker,
                 appBar = document.querySelector('#appBar'),
@@ -39,6 +40,7 @@
             function start(pomodoro) {
                 Pomodoro.currentPomodoro = pomodoro;
                 countdown = Pomodoro.getCountdown(Pomodoro.currentPomodoro.length);
+                toast.schedule({ title: "SIMPLE POMODORO", textContent: Pomodoro.currentPomodoro.completedMessage })
                 toggleButtonVisibility(Pomodoro.currentPomodoro);
                 appBar.winControl.hide();
                 update();

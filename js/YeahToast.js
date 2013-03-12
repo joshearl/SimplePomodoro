@@ -50,6 +50,25 @@
 
             notifier.show(toast);
         },
+        schedule: function (options) {
+
+            var toastXml = notifications.ToastNotificationManager.getTemplateContent(notifications.ToastTemplateType.toastText02);
+            var strings = toastXml.getElementsByTagName("text");
+            strings[0].appendChild(toastXml.createTextNode(options.title));
+            strings[1].appendChild(toastXml.createTextNode(options.textContent));
+            
+            var now = new Date();
+            var tenSecondsFromNow = new Date(now.getTime() + 10000);
+
+            var toast = new notifications.ScheduledToastNotification(toastXml, tenSecondsFromNow);
+            toast.id = this.getUniqueToastId();
+
+            notifications.ToastNotificationManager.createToastNotifier().addToSchedule(toast);
+            return toast;
+        },
+        getUniqueToastId: function () {
+            return Math.floor(Math.random() * 100000000);
+        },
         getTemplateFromOptions: function (options) {
             if (options.imgsrc && options.title && options.textContent && options.textContent2) {
                 return notifications.ToastTemplateType.toastImageAndText04;
