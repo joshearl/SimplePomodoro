@@ -13,6 +13,15 @@
 
             var toast = new notifications.ToastNotification(toastXml);
 
+            if (options.onactivated)
+                toast.onactivated = options.onactivated;
+
+            if (options.ondismissed)
+                toast.ondismissed = options.ondismissed;
+
+            if (options.onfailed)
+                toast.onfailed = options.onfailed;
+
             notifier.show(toast);
         },
         schedule: function (options) {
@@ -20,6 +29,16 @@
             var toastXml = this.getToastXml(options);
 
             var toast = new notifications.ScheduledToastNotification(toastXml, options.due);
+
+            if (options.onactivated)
+                toast.onactivated = options.onactivated;
+
+            if (options.ondismissed)
+                toast.ondismissed = options.ondismissed;
+
+            if (options.onfailed)
+                toast.onfailed = options.onfailed;
+
             toast.id = this.getUniqueToastId();
 
             notifier.addToSchedule(toast);
@@ -27,7 +46,7 @@
         },
         cancel: function (id) {
             var scheduled = notifier.getScheduledToastNotifications();
-            
+
             for (var i = 0, len = scheduled.length; i < len; i++) {
                 if (scheduled[i].id === id) {
                     notifier.removeFromSchedule(scheduled[i]);

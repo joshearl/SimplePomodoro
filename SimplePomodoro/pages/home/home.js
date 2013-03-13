@@ -84,7 +84,7 @@
             function reset() {
                 window.clearTimeout(ticker);
                 countdown = {};
-                cancelScheduledNotication();
+                //cancelScheduledNotication();
                 toggleButtonVisibility();
                 setDisplayTo();
             }
